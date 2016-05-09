@@ -6,13 +6,21 @@ package tpcc;
  *
  */
 public class InstructionMessage extends MessageSequence {
-
+	
 	private Integer instructionType;
 	private Integer productCode;
 	private Integer quantity;
 	private Integer uom;
 	private Integer timeStamp;
 
+	/**
+	 * Create a message
+	 * @param instructionType 0 < n < 100
+	 * @param productCode 0 < n
+	 * @param quantity 0 < n
+	 * @param uom 0 <= n < 256
+	 * @param timeStamp 0 < n
+	 */
 	public InstructionMessage(int instructionType, int productCode, int quantity, int uom, int timeStamp) {
 		super();
 		this.instructionType = instructionType;
@@ -64,6 +72,8 @@ public class InstructionMessage extends MessageSequence {
 
 	/**
 	 * Validate this message
+	 * <p>
+	 * Checks all the fields against the defined validation
 	 */
 	void validate() {
 		if (instructionType == null || (instructionType < 1 || instructionType > 99)) {

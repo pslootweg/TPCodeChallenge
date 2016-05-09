@@ -139,6 +139,9 @@ public class QueueTest {
 		assertEquals(3, uut.count());
 	}
 
+	/**
+	 * Simple same priority - retrieved in order added
+	 */
 	@Test
 	public void testDequeue_MultipleSamePriority() {
 		uut.enqueue(new InstructionMessage(1, 1, 1, 0, 1));
@@ -175,6 +178,9 @@ public class QueueTest {
 		assertEquals(0, uut.count());
 	}
 
+	/**
+	 * Mixed priority - 3 levels
+	 */
 	@Test
 	public void testDequeue_MultipleArbitraryPriority() {
 		uut.enqueue(new InstructionMessage(95, 1, 1, 0, 1));
@@ -188,6 +194,87 @@ public class QueueTest {
 		InstructionMessage msg = uut.dequeue();
 		assertNotNull(msg);
 		assertEquals(Integer.valueOf(2), msg.getProductCode());
+		
+		assertEquals(3, uut.count());
+		
+		msg = uut.dequeue();
+		assertNotNull(msg);
+		assertEquals(Integer.valueOf(4), msg.getProductCode());
+		
+		assertEquals(2, uut.count());
+		
+		msg = uut.dequeue();
+		assertNotNull(msg);
+		assertEquals(Integer.valueOf(3), msg.getProductCode());
+		
+		assertEquals(1, uut.count());
+		
+		msg = uut.dequeue();
+		assertNotNull(msg);
+		assertEquals(Integer.valueOf(1), msg.getProductCode());
+		
+		assertTrue("Should be empty", uut.isEmpty());
+		assertEquals(0, uut.count());
+	}
+
+	/**
+	 * High priority messages preserved in order added
+	 */
+	@Test
+	public void testDequeue_MultipleOrderPriority() {
+		uut.enqueue(new InstructionMessage(95, 1, 1, 0, 1));
+		uut.enqueue(new InstructionMessage(3, 2, 1, 0, 1));
+		uut.enqueue(new InstructionMessage(2, 3, 1, 0, 1));
+		uut.enqueue(new InstructionMessage(1, 4, 1, 0, 1));
+		
+		assertFalse("Should not be empty", uut.isEmpty());
+		assertEquals(4, uut.count());
+		
+		InstructionMessage msg = uut.dequeue();
+		assertNotNull(msg);
+		assertEquals(Integer.valueOf(2), msg.getProductCode());
+		
+		assertEquals(3, uut.count());
+		
+		msg = uut.dequeue();
+		assertNotNull(msg);
+		assertEquals(Integer.valueOf(3), msg.getProductCode());
+		
+		assertEquals(2, uut.count());
+		
+		msg = uut.dequeue();
+		assertNotNull(msg);
+		assertEquals(Integer.valueOf(4), msg.getProductCode());
+		
+		assertEquals(1, uut.count());
+		
+		msg = uut.dequeue();
+		assertNotNull(msg);
+		assertEquals(Integer.valueOf(1), msg.getProductCode());
+		
+		assertTrue("Should be empty", uut.isEmpty());
+		assertEquals(0, uut.count());
+	}
+	
+	/**
+	 * Mixed en/de-queue operations
+	 */
+	@Test
+	public void testEnqueDequeue_Mixed() {
+		uut.enqueue(new InstructionMessage(95, 1, 1, 0, 1));
+		uut.enqueue(new InstructionMessage(1, 2, 1, 0, 1));
+		
+		assertFalse("Should not be empty", uut.isEmpty());
+		assertEquals(2, uut.count());
+		
+		InstructionMessage msg = uut.dequeue();
+		assertNotNull(msg);
+		assertEquals(Integer.valueOf(2), msg.getProductCode());
+		
+		assertEquals(1, uut.count());
+		
+		uut.enqueue(new InstructionMessage(15, 3, 1, 0, 1));
+		uut.enqueue(new InstructionMessage(2, 4, 1, 0, 1));
 		
 		assertEquals(3, uut.count());
 		
