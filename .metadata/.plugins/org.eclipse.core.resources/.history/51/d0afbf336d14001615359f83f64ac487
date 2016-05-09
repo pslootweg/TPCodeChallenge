@@ -1,7 +1,0 @@
-package tpcc;
-
-import java.util.Comparator;
-
-public class PriorityComparator implements Comparator<T> {
-
-}
