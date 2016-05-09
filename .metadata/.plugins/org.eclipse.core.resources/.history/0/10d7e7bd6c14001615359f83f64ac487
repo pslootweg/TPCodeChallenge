@@ -1,0 +1,44 @@
+package tpcc;
+
+import static org.junit.Assert.*;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+public class QueueTest {
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@Test
+	public void testEnqueue() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDequeue() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testPeek() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCount() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsEmpty() {
+		fail("Not yet implemented");
+	}
+
+}
